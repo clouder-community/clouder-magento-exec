@@ -2,7 +2,7 @@ FROM clouder/clouder-base
 MAINTAINER Yannick Buron yburon@goclouder.net
 
 # Install required system packages
-RUN apt-get update && apt-get install -yq libxml2-dev apache2 php5 php5-mhash php5-mcrypt php5-curl php5-cli php5-mysql php5-gd php5-intl php5-xsl
+RUN apt-get update && apt-get install -yq libxml2-dev apache2 php-mcrypt php-curl php-cli php-mysql php-gd php-intl php-xsl
 # Update user www-data to use magento
 RUN usermod -u 1000 www-data
 # Create directory structure for volumes
@@ -16,7 +16,7 @@ RUN chown -h www-data:www-data /var/www/htdocs
 # Add dummy magento config file for the a2ensite command
 RUN touch /etc/apache2/sites-available/magento.conf
 # Finish configuring Apache/PHP
-RUN php5enmod mcrypt
+RUN phpenmod mcrypt
 RUN a2enmod rewrite
 RUN a2ensite magento.conf
 RUN a2dissite 000-default.conf
